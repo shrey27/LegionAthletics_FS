@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { createContext, useContext, useReducer, useEffect } from 'react';
-import { WISHLISTAPI } from '../routes/routes';
-import { useAuthCtx } from './authenticationContext';
-import { ToastMessage } from '../components/toast';
-import { useLocalStorage } from '../helpers';
+import axios from "axios";
+import { createContext, useContext, useReducer, useEffect } from "react";
+import { WISHLISTAPI } from "../routes/routes";
+import { useAuthCtx } from "./authenticationContext";
+import { ToastMessage } from "../components/toast";
+import { useLocalStorage } from "../helpers";
 import {
   wishlistApiReducerFunc,
-  wishlistDefaultState
-} from '../helpers/reducers';
+  wishlistDefaultState,
+} from "../helpers/reducers";
 
 const WishListContext = createContext();
 
@@ -21,35 +21,34 @@ const WishlistProvider = ({ children }) => {
   const { updateLocalStorage } = useLocalStorage();
 
   const addToWishlist = async (_id, objectData) => {
-    dispatch({ type: 'API_REQUEST' });
+    dispatch({ type: "API_REQUEST" });
     if (!addedPID.includes(_id)) {
       try {
-        console.log('data before post call', _id, objectData, token);
         const {
-          data: { wishlist }
+          data: { wishlist },
         } = await axios.post(
           WISHLISTAPI,
           {
             product: {
               _id,
-              ...objectData
-            }
+              ...objectData,
+            },
           },
           {
             headers: {
-              authorization: token
-            }
+              auth_token: token,
+            },
           }
         );
-        updateLocalStorage('wishlist', wishlist);
-        dispatch({ type: 'API_RESPONSE', payload: wishlist });
+        updateLocalStorage("wishlist", wishlist);
+        dispatch({ type: "API_RESPONSE", payload: wishlist });
         const idArray = wishlist.map((elem) => elem._id);
-        dispatch({ type: 'UPDATE_WISHLIST_PID', payload: idArray });
-        ToastMessage('Product added to wishlist', 'success');
+        dispatch({ type: "UPDATE_WISHLIST_PID", payload: idArray });
+        ToastMessage("Product added to wishlist", "success");
       } catch (err) {
-        console.log('POST-WISHLIST-ERROR', err);
-        dispatch({ type: 'API_FAILURE' });
-        ToastMessage('Product not added to wishlist', 'error');
+        console.log("POST-WISHLIST-ERROR", err);
+        dispatch({ type: "API_FAILURE" });
+        ToastMessage("Product not added to wishlist", "error");
       }
     } else {
       deleteFromWishlist(_id);
@@ -57,46 +56,46 @@ const WishlistProvider = ({ children }) => {
   };
 
   const deleteFromWishlist = async (id) => {
-    dispatch({ type: 'API_REQUEST' });
+    dispatch({ type: "API_REQUEST" });
     try {
       const {
-        data: { wishlist }
+        data: { wishlist },
       } = await axios.delete(`${WISHLISTAPI}/${id}`, {
         headers: {
-          authorization: token
-        }
+          auth_token: token,
+        },
       });
-      updateLocalStorage('wishlist', wishlist);
-      dispatch({ type: 'API_RESPONSE', payload: wishlist });
+      updateLocalStorage("wishlist", wishlist);
+      dispatch({ type: "API_RESPONSE", payload: wishlist });
 
       const idArray = wishlist.map((elem) => elem._id);
-      dispatch({ type: 'UPDATE_WISHLIST_PID', payload: idArray });
+      dispatch({ type: "UPDATE_WISHLIST_PID", payload: idArray });
 
-      ToastMessage('Product deleted from wishlist', 'info');
+      ToastMessage("Product deleted from wishlist", "info");
     } catch (err) {
-      console.log('DELETE-WISHLIST-ERROR', err);
-      dispatch({ type: 'API_FAILURE' });
-      ToastMessage('Product not deleted from wishlist', 'error');
+      console.log("DELETE-WISHLIST-ERROR", err);
+      dispatch({ type: "API_FAILURE" });
+      ToastMessage("Product not deleted from wishlist", "error");
     }
   };
 
   useEffect(() => {
     const getWishlist = async () => {
-      dispatch({ type: 'API_REQUEST' });
+      dispatch({ type: "API_REQUEST" });
       try {
         const {
-          data: { wishlist }
+          data: { wishlist },
         } = await axios.get(WISHLISTAPI, {
           headers: {
-            authorization: token
-          }
+            auth_token: token,
+          },
         });
-        dispatch({ type: 'API_RESPONSE', payload: [...wishlist] });
+        dispatch({ type: "API_RESPONSE", payload: [...wishlist] });
         const idArray = wishlist.map((elem) => elem._id);
-        dispatch({ type: 'UPDATE_WISHLIST_PID', payload: idArray });
+        dispatch({ type: "UPDATE_WISHLIST_PID", payload: idArray });
       } catch (err) {
-        console.log('GET-WISHLIST-ERROR', err);
-        dispatch({ type: 'API_FAILURE' });
+        console.log("GET-WISHLIST-ERROR", err.message);
+        dispatch({ type: "API_FAILURE" });
       }
     };
     if (token) getWishlist();
@@ -110,7 +109,7 @@ const WishlistProvider = ({ children }) => {
         wishlistData,
         addToWishlist,
         wishListError,
-        deleteFromWishlist
+        deleteFromWishlist,
       }}
     >
       {children}

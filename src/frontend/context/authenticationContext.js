@@ -99,9 +99,9 @@ const AuthProvider = ({ children }) => {
         });
         if (foundUser) {
           localStorage.setItem('token', encodedToken);
-          localStorage.setItem('userData', JSON.stringify(foundUser));
+          localStorage.setItem('userData', JSON.stringify(foundUser[0]));
           dispatch({ type: 'TOKEN-SAVED', payload: encodedToken });
-          handleUserDetails(foundUser);
+          handleUserDetails(foundUser[0]);
           navigate(navigateTo ?? HOMEPAGE, { replace: true });
           ToastMessage('Sign In was Successfull', 'success');
         } else {

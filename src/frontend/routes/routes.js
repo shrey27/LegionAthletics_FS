@@ -16,15 +16,16 @@ import PrivateRoute from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../pages/notfound";
 
-const EXPRESS_SERVER = "https://legionathletics.shrey27.repl.co/";
+const EXPRESS_SERVER = process.env["REACT_APP_API"];
+
 //API endpoints
-export const SIGNUPAPI = "/api/auth/signup";
-export const SIGNINAPI = "/api/auth/login";
-export const UPDATEDETAILS = "/api/auth/update";
-export const PRODUCTSAPI = EXPRESS_SERVER + "products";
-export const WISHLISTAPI = "/api/user/wishlist";
-export const CARTAPI = "/api/user/cart";
-export const ADDRESS = "/api/user/address";
+export const SIGNUPAPI = EXPRESS_SERVER + "/signup";
+export const SIGNINAPI = EXPRESS_SERVER + "/login";
+export const UPDATEDETAILS = EXPRESS_SERVER + "/update";
+export const PRODUCTSAPI = EXPRESS_SERVER + "/products";
+export const WISHLISTAPI = EXPRESS_SERVER + "/wishlist";
+export const CARTAPI = EXPRESS_SERVER + "/cart";
+export const ADDRESS = EXPRESS_SERVER + "/address";
 
 //Route paths
 export const HOMEPAGE = "/";
@@ -49,7 +50,7 @@ export const availableRoutes = (
     <Route path={MOCKAPI} element={<MockAPI />} />
     <Route path={SIGNOUT} element={<Signout />} exact />
 
-    {/* <Route path={HOMEPAGE} element={<PrivateRoute />}> */}
+    <Route path={HOMEPAGE} element={<PrivateRoute />}>
       <Route path={CART} element={<Cart />} exact />
       <Route path={WISHLIST} element={<Wishlist />} exact />
       <Route path={`${PRODUCTS}/:productId`} element={<Product />} exact />
@@ -57,7 +58,7 @@ export const availableRoutes = (
       <Route path={PROFILE} element={<Profile />} exact />
       <Route path={PROFILEADDRESS} element={<Address />} exact />
       <Route path={CHECKOUT} element={<Checkout />} exact />
-    {/* </Route> */}
+    </Route>
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

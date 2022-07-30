@@ -86,7 +86,6 @@ const ProductsContextProvider = ({ children }) => {
     (async () => {
       try {
         let resp = await axios.get(PRODUCTSAPI);
-        console.log(resp)
         setProductList(resp.data.products);
       } catch (err) {
         console.log('GET-PRODUCTS ERROR FROM USEEFFECT', err);

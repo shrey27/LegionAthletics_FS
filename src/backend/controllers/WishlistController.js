@@ -34,7 +34,6 @@ export const getWishlistItemsHandler = function (schema, request) {
  * */
 
 export const addItemToWishlistHandler = function (schema, request) {
-  console.log(request)
   const userId = requiresAuth.call(this, request);
   try {
     if (!userId) {
