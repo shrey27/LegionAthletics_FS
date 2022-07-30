@@ -1,0 +1,18 @@
+@import '../../utility/styles.css';
+
+.card__status__tag {
+  color: var(--white);
+  background-color: var(--tag);
+  border: 2px solid var(--tag);
+  margin: 0.5rem;
+}
+.card__status__cart {
+  color: var(--price);
+  border: 2px solid var(--price);
+  margin: 0.5rem;
+}
+.card__status__address {
+  color: var(--tertiary);
+  border: 2px solid var(--tertiary);
+  margin: 0.5rem;
+}

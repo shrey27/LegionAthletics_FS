@@ -1,0 +1,99 @@
+@import '../../utility/styles.css';
+
+/* Features */
+.features {
+  display: flex;
+  flex-direction: column;
+}
+.feature {
+  flex: 1;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1em 0;
+  border: 2px solid var(--primary--light);
+  background-color: var(--button-light);
+}
+
+/* Carousal */
+.carousal--container {
+  width: 100%;
+}
+.carousal {
+  width: 99%;
+  margin: auto;
+}
+
+/* Shortcuts */
+.shortcuts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+.shortcut {
+  margin: auto;
+  flex: 1 0 100%;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Button */
+.btn--all {
+  color: var(--white);
+  background-color: var(--tertiary);
+  font-size: 1.5rem;
+  padding: 0.75rem 2rem;
+}
+
+/* Categories */
+.categories {
+  display: none;
+}
+.link__tags {
+  color: var(--white);
+}
+/* Media Queries */
+@media screen and (min-width: 338px) {
+  .shortcut {
+    flex: 1 0 35%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .shortcut {
+    flex: 1 0 22%;
+    /* flex: 1 0 25%; */
+    /* for 6 categories  */
+  }
+}
+@media screen and (min-width: 1052px) {
+  .features {
+    flex-direction: row;
+  }
+  .carousal {
+    width: 100%;
+  }
+  .shortcut {
+    flex: 1 0 8%;
+    font-size: 1.5rem;
+  }
+  .categories {
+    display: flex;
+    background-color: var(--tertiary);
+    color: var(--white);
+  }
+  .category {
+    flex: 1;
+    height: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,99 @@
+@import '../../utility/styles.css';
+
+.profile {
+  width: 80%;
+  max-width: 30rem;
+  border: none;
+}
+.profile__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.one,
+.three,
+.two,
+.four,
+.five,
+.six {
+  grid-column: 1/2;
+}
+.textarea {
+  width: 100%;
+  height: 6rem;
+  outline: none;
+  display: inline;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 2px solid var(--primary--light);
+  border-radius: 0;
+  margin: 0;
+}
+.card__profile {
+  max-width: none;
+  max-height: none;
+  width: 90%;
+  height: auto;
+  margin: 2rem auto;
+}
+.manage {
+  flex-direction: column;
+}
+.hb--main {
+  margin: 0;
+  padding: 0;
+}
+/* Aside */
+/* Aside title */
+.aside__title {
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.stack__item {
+  list-style: none;
+  width: 100%;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.stack__item:hover {
+  background-color: var(--tertiary--light);
+  color: var(--white);
+}
+.stack__item i {
+  float: right;
+  margin-top: 5px;
+}
+
+@media screen and (min-width: 400px) {
+  .manage {
+    flex-direction: row;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .card__profile {
+    width: 50%;
+  }
+  .profile__container {
+    width: 80%;
+    padding: 0 0.5rem;
+  }
+  .profile__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .one,
+  .three {
+    grid-column: 1/2;
+  }
+  .two,
+  .four {
+    grid-column: 2/3;
+  }
+  .five {
+    grid-column: 1/3;
+  }
+}

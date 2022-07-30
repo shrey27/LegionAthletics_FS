@@ -1,0 +1,86 @@
+@import '../../utility/styles.css';
+
+/* Authentication Pages */
+.authentication {
+  width: 80%;
+  max-width: 40rem;
+  margin: 1rem auto;
+}
+.authentication__input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+}
+.forgot {
+  color: var(--tertiary);
+  text-decoration: underline;
+  font-weight: 500;
+}
+.already {
+  color: var(--tertiary);
+  text-decoration: underline;
+}
+.input__error {
+  display: inline-block;
+  color: var(--tag);
+  margin: 0.5rem 0.25rem;
+  font-weight: normal;
+  font-size: 1rem;
+}
+.signin__remember {
+  padding: 0 0.5rem;
+  margin: 0.5rem 0;
+}
+.signin__links {
+  padding: 0 1rem 1rem 1rem;
+}
+.input__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--primary--light);
+}
+.input__password {
+  width: 95%;
+  border: none;
+}
+.input__eye {
+  color: var(--black);
+}
+
+.signup__ctr {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'aside-left'
+    'aside-right';
+  align-items: start;
+  justify-content: center;
+}
+.aside-left {
+  grid-area: aside-left;
+}
+.aside-right {
+  grid-area: aside-right;
+}
+.textarea {
+  width: 100%;
+  height: 6rem;
+  outline: none;
+  display: inline;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 2px solid var(--primary--light);
+  border-radius: 0;
+  margin: 0;
+}
+@media screen and (min-width: 768px) {
+  .signup__ctr {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'aside-left aside-right';
+  }
+}

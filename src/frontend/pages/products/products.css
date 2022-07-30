@@ -1,0 +1,29 @@
+@import '../../utility/styles.css';
+
+.hb--aside::-webkit-scrollbar {
+  display: none;
+}
+input {
+  vertical-align: text-top;
+}
+label {
+  display: block;
+  margin: 0.5rem 1rem;
+  font-size: 1rem;
+}
+.filter__ip {
+  width: 1rem;
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+.filter__slider {
+  width: 100%;
+  background-color: var(--tertiary);
+}
+.fl-rt {
+  float: right;
+}
+.clear__btn {
+  border-bottom: 1px solid var(--primary);
+  cursor: pointer;
+}
