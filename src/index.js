@@ -12,7 +12,7 @@ import {
 } from './frontend/context';
 
 // Call make Server
-makeServer();
+// makeServer();
 
 ReactDOM.render(
   <React.StrictMode>
