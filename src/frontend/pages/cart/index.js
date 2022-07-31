@@ -33,10 +33,10 @@ export default function Cart() {
   useEffect(() => {
     const calculateTotal = () => {
       const total = cartListData.reduce((acc, curr) => {
-        return acc + curr.price * curr.qty;
+        return acc + curr.price * curr.count;
       }, 0);
       const discount = cartListData.reduce((acc, curr) => {
-        return acc + (curr.qty * curr.price * curr.discount) / 100;
+        return acc + (curr.count * curr.price * curr.discount) / 100;
       }, 0);
       const delivery = total - discount > 10000 ? 0 : 500;
       let net = total - discount + delivery - coupon?.couponDiscount;
@@ -55,7 +55,7 @@ export default function Cart() {
 
   const proceedFunction = () => {
     const cartArray = cartListData.map((elem) => {
-      const productTotal = elem.price * elem.qty;
+      const productTotal = elem.price * elem.count;
       const discountOnProduct = productTotal * (elem.discount / 100);
       const delivery = productTotal > 10000 ? 0 : 500;
       return { ...elem, productTotal, discountOnProduct, delivery };

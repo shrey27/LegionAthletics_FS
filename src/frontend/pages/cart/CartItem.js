@@ -2,7 +2,7 @@ import './cart.css';
 import { useCartCtx, useCartAPICtx, useWishlistCtx } from '../../context';
 
 export default function CartItem(props) {
-  const { _id, source, title, price, mrp, discount, qty } = props;
+  const { _id, source, title, price, mrp, discount, count: qty } = props;
   const { incQty, decQty } = useCartCtx();
   const { addToWishlist } = useWishlistCtx();
   const { deleteFromCart, cartLoading } = useCartAPICtx();

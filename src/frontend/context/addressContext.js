@@ -3,13 +3,14 @@ import {
   useContext,
   useReducer,
   useEffect,
-  useState
-} from 'react';
-import { ToastMessage } from '../components';
-import axios from 'axios';
-import { ADDRESS } from '../routes/routes';
-import { useAuthCtx } from './authenticationContext';
-import { addressReducerFunction, addressState } from '../helpers/reducers';
+  useState,
+} from "react";
+import { ToastMessage } from "../components";
+import axios from "axios";
+import { ADDRESS } from "../routes/routes";
+import { useAuthCtx } from "./authenticationContext";
+import { addressReducerFunction, addressState } from "../helpers/reducers";
+import { v4 as uuid } from "uuid";
 
 const AddressContext = createContext();
 const AddressAPIContext = createContext();
@@ -23,7 +24,7 @@ const AddressContextProvider = ({ children }) => {
 
   const handleFormCancel = () => {
     setSlide(false);
-    dispatch({ type: 'CLEAR_FORM' });
+    dispatch({ type: "CLEAR_FORM" });
   };
 
   const validationAddress = (addressObject) => {
@@ -35,20 +36,20 @@ const AddressContextProvider = ({ children }) => {
       address,
       city,
       stateLoc,
-      pincode
+      pincode,
     } = addressObject;
     const errors = [];
-    if (!firstname) errors.push('firstname');
-    if (!lastname) errors.push('lastname');
-    if (!phone) errors.push('phone');
-    if (!address) errors.push('address');
-    if (!email) errors.push('email');
-    if (!city) errors.push('city');
-    if (!stateLoc) errors.push('stateLoc');
-    if (!pincode) errors.push('pincode');
+    if (!firstname) errors.push("firstname");
+    if (!lastname) errors.push("lastname");
+    if (!phone) errors.push("phone");
+    if (!address) errors.push("address");
+    if (!email) errors.push("email");
+    if (!city) errors.push("city");
+    if (!stateLoc) errors.push("stateLoc");
+    if (!pincode) errors.push("pincode");
 
     if (errors.length) {
-      dispatch({ type: 'ERROR_FIELDS', payload: [...errors] });
+      dispatch({ type: "ERROR_FIELDS", payload: [...errors] });
       return false;
     }
     return true;
@@ -62,7 +63,7 @@ const AddressContextProvider = ({ children }) => {
         validationAddress,
         handleFormCancel,
         slide,
-        setSlide
+        setSlide,
       }}
     >
       {children}
@@ -73,37 +74,37 @@ const AddressContextProvider = ({ children }) => {
 const defaultState = {
   addressList: [],
   addressLoader: false,
-  addressForm: {}
+  addressForm: {},
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADDRESS_API_REQUEST':
+    case "ADDRESS_API_REQUEST":
       return {
         ...state,
-        addressLoader: true
+        addressLoader: true,
       };
-    case 'ADDRESS_API_RESPONSE':
+    case "ADDRESS_API_RESPONSE":
       const arr = action.payload;
       return {
         ...state,
         addressLoader: false,
-        addressList: [...arr]
+        addressList: [...arr],
       };
-    case 'ADDRESS_API_FAILURE':
+    case "ADDRESS_API_FAILURE":
       return {
         ...state,
-        addressLoader: false
+        addressLoader: false,
       };
-    case 'ADDRESS_FORM__DATA':
-      console.log('address form data', action.payload);
+    case "ADDRESS_FORM__DATA":
+      console.log("address form data", action.payload);
       return {
         ...state,
-        addressForm: action.payload
+        addressForm: action.payload,
       };
     default:
       return {
-        ...state
+        ...state,
       };
   }
 };
@@ -114,62 +115,61 @@ const AddressApiContextProvider = ({ children }) => {
 
   const addNewAddress = async (addObject) => {
     try {
-      dispatcher({ type: 'ADDRESS_API_REQUEST' });
+      dispatcher({ type: "ADDRESS_API_REQUEST" });
       const {
-        data: { address }
+        data: { address },
       } = await axios.post(
         ADDRESS,
-        { address: { ...addObject, type: 'HOME' } },
+        { address: { _id: uuid(), ...addObject, type: "HOME" } },
         {
           headers: {
-            authorization: token
-          }
+            auth_token: token,
+          },
         }
       );
-      console.log(address);
-      dispatcher({ type: 'ADDRESS_API_RESPONSE', payload: [...address] });
-      ToastMessage('Address saved Successfully', 'success');
+      dispatcher({ type: "ADDRESS_API_RESPONSE", payload: [...address] });
+      ToastMessage("Address saved Successfully", "success");
     } catch (err) {
-      console.log('ADD new address api error', err);
-      dispatcher({ type: 'ADDRESS_API_FAILURE' });
-      ToastMessage('Address submission failed', 'error');
+      console.log("ADD new address api error", err);
+      dispatcher({ type: "ADDRESS_API_FAILURE" });
+      ToastMessage("Address submission failed", "error");
     }
   };
 
   const deleteAddress = async (id) => {
     try {
-      dispatcher({ type: 'ADDRESS_API_REQUEST' });
+      dispatcher({ type: "ADDRESS_API_REQUEST" });
       const {
-        data: { address }
-      } = await axios.delete(ADDRESS + '/' + id, {
+        data: { address },
+      } = await axios.delete(ADDRESS + "/" + id, {
         headers: {
-          authorization: token
-        }
+          auth_token: token,
+        },
       });
-      dispatcher({ type: 'ADDRESS_API_RESPONSE', payload: [...address] });
-      ToastMessage('Address Deleted Successfully', 'info');
+      dispatcher({ type: "ADDRESS_API_RESPONSE", payload: [...address] });
+      ToastMessage("Address Deleted Successfully", "info");
     } catch (err) {
-      console.log('Delete address api error', err);
-      dispatcher({ type: 'ADDRESS_API_FAILURE' });
-      ToastMessage('Address Deletion failed', 'error');
+      console.log("Delete address api error", err);
+      dispatcher({ type: "ADDRESS_API_FAILURE" });
+      ToastMessage("Address Deletion failed", "error");
     }
   };
 
   useEffect(() => {
     const getAddressList = async () => {
-      dispatcher({ type: 'ADDRESS_API_REQUEST' });
+      dispatcher({ type: "ADDRESS_API_REQUEST" });
       try {
         const {
-          data: { address }
+          data: { address },
         } = await axios.get(ADDRESS, {
           headers: {
-            authorization: token
-          }
+            auth_token: token,
+          },
         });
-        dispatcher({ type: 'ADDRESS_API_RESPONSE', payload: [...address] });
+        dispatcher({ type: "ADDRESS_API_RESPONSE", payload: [...address] });
       } catch (err) {
-        console.log('GET-ADDRESS-ERROR', err);
-        dispatcher({ type: 'ADDRESS_API_FAILURE' });
+        console.log("GET-ADDRESS-ERROR", err);
+        dispatcher({ type: "ADDRESS_API_FAILURE" });
       }
     };
     if (token) getAddressList();
@@ -180,7 +180,7 @@ const AddressApiContextProvider = ({ children }) => {
       value={{
         ...state,
         addNewAddress,
-        deleteAddress
+        deleteAddress,
       }}
     >
       <AddressContextProvider>{children}</AddressContextProvider>

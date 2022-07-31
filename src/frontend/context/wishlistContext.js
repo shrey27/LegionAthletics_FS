@@ -40,7 +40,8 @@ const WishlistProvider = ({ children }) => {
             },
           }
         );
-        updateLocalStorage("wishlist", wishlist);
+        // updateLocalStorage("wishlist", wishlist);
+        // let wishlistArray = 
         dispatch({ type: "API_RESPONSE", payload: wishlist });
         const idArray = wishlist.map((elem) => elem._id);
         dispatch({ type: "UPDATE_WISHLIST_PID", payload: idArray });
@@ -65,7 +66,7 @@ const WishlistProvider = ({ children }) => {
           auth_token: token,
         },
       });
-      updateLocalStorage("wishlist", wishlist);
+      // updateLocalStorage("wishlist", wishlist);
       dispatch({ type: "API_RESPONSE", payload: wishlist });
 
       const idArray = wishlist.map((elem) => elem._id);
