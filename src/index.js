@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { makeServer } from './server';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { makeServer } from "./server";
+import { BrowserRouter } from "react-router-dom";
 import {
   CartAPIProvider,
   WishlistProvider,
   AuthProvider,
   ProductsContextProvider,
-  AddressApiContextProvider
-} from './frontend/context';
+  AddressApiContextProvider,
+  OrdersProvider,
+} from "./frontend/context";
 
 // Call make Server
 // makeServer();
@@ -21,14 +22,16 @@ ReactDOM.render(
         <AddressApiContextProvider>
           <CartAPIProvider>
             <WishlistProvider>
-              <ProductsContextProvider>
-                <App />
-              </ProductsContextProvider>
+              <OrdersProvider>
+                <ProductsContextProvider>
+                  <App />
+                </ProductsContextProvider>
+              </OrdersProvider>
             </WishlistProvider>
           </CartAPIProvider>
         </AddressApiContextProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

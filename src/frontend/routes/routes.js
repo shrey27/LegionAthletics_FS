@@ -26,6 +26,7 @@ export const PRODUCTSAPI = EXPRESS_SERVER + "/products";
 export const WISHLISTAPI = EXPRESS_SERVER + "/wishlist";
 export const CARTAPI = EXPRESS_SERVER + "/cart";
 export const ADDRESS = EXPRESS_SERVER + "/address";
+export const ORDERS_API = EXPRESS_SERVER + "/orders";
 
 //Route paths
 export const HOMEPAGE = "/";

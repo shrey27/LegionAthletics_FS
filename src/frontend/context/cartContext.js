@@ -83,9 +83,9 @@ const CartAPIProvider = ({ children }) => {
     }
   };
 
-  const handleOrderPlaced = async (tempObj) => {
+  const handleOrderPlaced = async () => {
     dispatch({ type: "API_REQUEST" });
-    dispatch({ type: "UPDATE_ORDERS", payload: { _id: uuid(), ...tempObj } });
+    // dispatch({ type: "UPDATE_ORDERS", payload: { _id: uuid(), ...tempObj } });
     try {
       await axios.delete(CARTAPI + "/all", {
         headers: {
@@ -94,10 +94,10 @@ const CartAPIProvider = ({ children }) => {
       });
       dispatch({ type: "API_RESPONSE", payload: [] });
       dispatch({ type: "UPDATE_CART_PID", payload: [] });
+      ToastMessage("Payment Completed! Order is Placed", "success");
     } catch (err) {
       console.log("Delete all cart Items error", err);
     }
-    ToastMessage("Payment Completed! Order is Placed", "success");
   };
 
   const deleteFromCart = async (id) => {

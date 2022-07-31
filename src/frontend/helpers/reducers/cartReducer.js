@@ -4,7 +4,7 @@ export const defaultCartState = {
   cartListData: [],
   addedCartPID: [],
   ordercart: {},
-  orders: []
+  // orders: []
 };
 export const cartApiReducerFunc = (state, action) => {
   switch (action.type) {
@@ -37,11 +37,11 @@ export const cartApiReducerFunc = (state, action) => {
         ...state,
         ordercart: action.payload
       };
-    case 'UPDATE_ORDERS':
-      return {
-        ...state,
-        orders: [action.payload, ...state.orders]
-      };
+    // case 'UPDATE_ORDERS':
+    //   return {
+    //     ...state,
+    //     orders: [action.payload, ...state.orders]
+    //   };
     case 'STOP_LOADER':
       return {
         ...state,
