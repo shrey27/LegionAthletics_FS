@@ -19,8 +19,8 @@ import NotFound from "../pages/notfound";
 const EXPRESS_SERVER = process.env["REACT_APP_API"];
 
 //API endpoints
-export const SIGNUPAPI = EXPRESS_SERVER + "/signup";
-export const SIGNINAPI = EXPRESS_SERVER + "/login";
+export const SIGNUPAPI = EXPRESS_SERVER + "/auth/signup";
+export const SIGNINAPI = EXPRESS_SERVER + "/auth/signin";
 export const UPDATEDETAILS = EXPRESS_SERVER + "/update";
 export const PRODUCTSAPI = EXPRESS_SERVER + "/products";
 export const WISHLISTAPI = EXPRESS_SERVER + "/wishlist";

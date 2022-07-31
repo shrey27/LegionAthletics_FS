@@ -3,7 +3,6 @@ import { CART, CARTAPI } from "../routes/routes";
 import { useAuthCtx } from "./authenticationContext";
 import axios from "axios";
 import { ToastMessage } from "../components/toast";
-import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router";
 import { cartApiReducerFunc, defaultCartState } from "../helpers/reducers";
 
@@ -85,7 +84,6 @@ const CartAPIProvider = ({ children }) => {
 
   const handleOrderPlaced = async () => {
     dispatch({ type: "API_REQUEST" });
-    // dispatch({ type: "UPDATE_ORDERS", payload: { _id: uuid(), ...tempObj } });
     try {
       await axios.delete(CARTAPI + "/all", {
         headers: {
