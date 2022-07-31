@@ -15,7 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../pages/notfound";
 
-const EXPRESS_SERVER = "/v1";
+const EXPRESS_SERVER = "https://legionathletics.shrey27.repl.co/v1";
 
 //API endpoints
 export const SIGNUPAPI = EXPRESS_SERVER + "/auth/signup";
