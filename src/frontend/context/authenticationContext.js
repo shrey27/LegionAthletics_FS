@@ -31,6 +31,7 @@ const AuthentiationContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [disable, setDisable] = useState(true);
+  const [disableSubmit, setDisableSubmit] = useState(false);
   const [state, dispatch] = useReducer(authReducerFunc, defaultState);
   const {
     email,
@@ -180,6 +181,7 @@ const AuthProvider = ({ children }) => {
     e.preventDefault();
     if (validateUpdateDetails(state, dispatch)) {
       try {
+        setDisableSubmit(true);
         const {
           data: { updatedDetails },
         } = await axios.post(
@@ -204,8 +206,9 @@ const AuthProvider = ({ children }) => {
         updateLocalStorage("phone", updatedDetails.phone);
         updateLocalStorage("signUpAddress", updatedDetails.signUpAddress);
         updateLocalStorage("email", updatedDetails.email);
-        setDisable(true);
         ToastMessage("Details updated Successfully", "success");
+        setDisable(true);
+        setDisableSubmit(false);
       } catch (err) {
         console.log("profile details error", err);
         profileUpdateCancelled();
@@ -243,6 +246,7 @@ const AuthProvider = ({ children }) => {
         profileUpdateCancelled,
         disable,
         setDisable,
+        disableSubmit,
         handleSetPrimaryAddress,
       }}
     >

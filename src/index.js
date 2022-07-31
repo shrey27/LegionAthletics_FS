@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import {
   CartAPIProvider,
@@ -11,9 +10,6 @@ import {
   AddressApiContextProvider,
   OrdersProvider,
 } from "./frontend/context";
-
-// Call make Server
-// makeServer();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -11,7 +11,6 @@ import Profile from "../pages/profile";
 import Address from "../pages/address";
 import Checkout from "../pages/checkout";
 
-import MockAPI from "../../MockAPI";
 import PrivateRoute from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../pages/notfound";
@@ -36,7 +35,6 @@ export const WISHLIST = "/wishlist";
 export const SIGNIN = "/signin";
 export const SIGNUP = "/signup";
 export const SIGNOUT = "/signout";
-export const MOCKAPI = "/mock-api";
 export const ORDER = "/orders";
 export const PROFILE = "/profile";
 export const PROFILEADDRESS = "/profile/address";
@@ -48,7 +46,6 @@ export const availableRoutes = (
     <Route path={PRODUCTS} element={<Products />} />
     <Route path={SIGNIN} element={<Signin />} />
     <Route path={SIGNUP} element={<Signup />} />
-    <Route path={MOCKAPI} element={<MockAPI />} />
     <Route path={SIGNOUT} element={<Signout />} exact />
 
     <Route path={HOMEPAGE} element={<PrivateRoute />}>
