@@ -101,6 +101,12 @@ const AuthProvider = ({ children }) => {
         });
         if (foundUser) {
           localStorage.setItem("token", encodedToken);
+          delete foundUser.password;
+          delete foundUser.wishlist;
+          delete foundUser.address;
+          delete foundUser.cart;
+          delete foundUser.orders;
+          localStorage.setItem("userData", JSON.stringify(foundUser));
           dispatch({ type: "TOKEN-SAVED", payload: encodedToken });
           handleUserDetails(foundUser);
           navigate(navigateTo ?? HOMEPAGE, { replace: true });
@@ -179,24 +185,25 @@ const AuthProvider = ({ children }) => {
         } = await axios.post(
           UPDATEDETAILS,
           {
-            firstName,
-            lastName,
-            phone,
-            email: email ?? signUpEmail,
-            signUpAddress,
+            userDetails: {
+              firstName,
+              lastName,
+              phone,
+              signUpAddress,
+            },
           },
           {
             headers: {
-              authorization: token,
+              auth_token: token,
             },
           }
         );
         handleUserDetails(updatedDetails);
-        updateLocalStorage("firstName", firstName);
-        updateLocalStorage("lastName", lastName);
-        updateLocalStorage("phone", phone);
-        updateLocalStorage("signUpAddress", signUpAddress);
-        updateLocalStorage("email", email);
+        updateLocalStorage("firstName", updatedDetails.firstName);
+        updateLocalStorage("lastName", updatedDetails.lastName);
+        updateLocalStorage("phone", updatedDetails.phone);
+        updateLocalStorage("signUpAddress", updatedDetails.signUpAddress);
+        updateLocalStorage("email", updatedDetails.email);
         setDisable(true);
         ToastMessage("Details updated Successfully", "success");
       } catch (err) {

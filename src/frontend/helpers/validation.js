@@ -1,4 +1,4 @@
-import { errorStatements } from '../utility/constants';
+import { errorStatements } from "../utility/constants";
 export function validateSignIn(state, dispatch) {
   const { email, password } = state;
   const errorArray = [];
@@ -8,10 +8,10 @@ export function validateSignIn(state, dispatch) {
       /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     )
   ) {
-    errorArray.push('EMAIL-INCORRECT');
+    errorArray.push("EMAIL-INCORRECT");
   }
   if (!password || password.length < 8) {
-    errorArray.push('PASSWORD-INCORRECT');
+    errorArray.push("PASSWORD-INCORRECT");
   }
   if (errorArray.length) {
     errorArray.forEach((elem) =>
@@ -30,14 +30,14 @@ export function validationSignUp(state, dispatch) {
     signUpPassword,
     cnfPassword,
     phone,
-    signUpAddress
+    signUpAddress,
   } = state;
   const errorArray = [];
   if (!firstName || !firstName.match(/^[a-zA-Z ]+/)) {
-    errorArray.push('SIGNUP-FIRSTNAME-ERROR');
+    errorArray.push("SIGNUP-FIRSTNAME-ERROR");
   }
   if (!lastName || !lastName.match(/^[a-zA-Z ]+/)) {
-    errorArray.push('SIGNUP-LASTNAME-ERROR');
+    errorArray.push("SIGNUP-LASTNAME-ERROR");
   }
   if (
     !signUpEmail ||
@@ -45,22 +45,22 @@ export function validationSignUp(state, dispatch) {
       /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     )
   ) {
-    errorArray.push('SIGNUP-EMAIL-INCORRECT');
+    errorArray.push("SIGNUP-EMAIL-INCORRECT");
   }
   if (!signUpPassword || signUpPassword.length < 8) {
-    errorArray.push('SIGNUP-PASSWORD-INCORRECT');
+    errorArray.push("SIGNUP-PASSWORD-INCORRECT");
   }
   if (!cnfPassword || cnfPassword.length < 8) {
-    errorArray.push('CONFIRM-PASSWORD-INCORRECT');
+    errorArray.push("CONFIRM-PASSWORD-INCORRECT");
   }
   if (cnfPassword !== signUpPassword) {
-    errorArray.push('PASSWORDS-MISMATCH');
+    errorArray.push("PASSWORDS-MISMATCH");
   }
   if (!phone || !phone.match(/^\d{10}$/)) {
-    errorArray.push('SIGNUP-PHONE-ERROR');
+    errorArray.push("SIGNUP-PHONE-ERROR");
   }
   if (!signUpAddress) {
-    errorArray.push('SIGNUP-ADDRESS-ERROR');
+    errorArray.push("SIGNUP-ADDRESS-ERROR");
   }
   if (errorArray.length) {
     errorArray.forEach((elem) =>
@@ -74,17 +74,17 @@ export function validationSignUp(state, dispatch) {
 export const validateUpdateDetails = (state, dispatch) => {
   const { firstName, lastName, phone, signUpAddress } = state;
   const errorArray = [];
-  if (!firstName || !firstName.match(/^[a-zA-Z ]+/)) {
-    errorArray.push('SIGNUP-FIRSTNAME-ERROR');
+  if (!firstName || !/^[a-zA-Z ]+/.test(firstName)) {
+    errorArray.push("SIGNUP-FIRSTNAME-ERROR");
   }
-  if (!lastName || !lastName.match(/^[a-zA-Z ]+/)) {
-    errorArray.push('SIGNUP-LASTNAME-ERROR');
+  if (!lastName || !/^[a-zA-Z ]+/.test(lastName)) {
+    errorArray.push("SIGNUP-LASTNAME-ERROR");
   }
-  if (!phone || !phone.match(/^\d{10}$/)) {
-    errorArray.push('SIGNUP-PHONE-ERROR');
+  if (!phone || !/^\d{10}$/.test(phone)) {
+    errorArray.push("SIGNUP-PHONE-ERROR");
   }
   if (!signUpAddress) {
-    errorArray.push('SIGNUP-ADDRESS-ERROR');
+    errorArray.push("SIGNUP-ADDRESS-ERROR");
   }
   if (errorArray.length) {
     errorArray.forEach((elem) =>
