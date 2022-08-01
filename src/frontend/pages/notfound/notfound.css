@@ -1,0 +1,27 @@
+@import '../../utility/styles.css';
+
+.notfound {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.notfound__image {
+  display: block;
+  width: 90%;
+  max-width: 15rem;
+  height: auto;
+  object-fit: contain;
+}
+.notfound__primary,
+.notfound__secondary {
+  font-size: 2rem;
+  color: var(--tag);
+  margin: 1rem;
+}
+.notfound__secondary {
+  font-size: 1.5rem;
+  color: var(--price);
+  margin: 0.5rem;
+}

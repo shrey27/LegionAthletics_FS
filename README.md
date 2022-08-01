@@ -1,1 +1,4 @@
-# LeggionAthletics_FS
+### LeggionAthletics_FS
+
+### Tech stack used
+- MERN stack

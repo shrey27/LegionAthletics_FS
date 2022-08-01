@@ -1,0 +1,91 @@
+@import '../../utility/styles.css';
+
+
+/* Drawer */
+.drawer__content {
+  width: 50%;
+  z-index: 100;
+}
+/* Navbar */
+.border--btm {
+  border-bottom: 2px solid var(--primary--light);
+}
+.navbar__title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 16px;
+}
+.menu {
+  position: relative;
+}
+.menu__btn {
+  padding: 1rem;
+}
+.menu__btn__name {
+  display: none;
+}
+.submenu {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  z-index: 100;
+  background-color: var(--white);
+  border: 1px solid var(--primary--light);
+  transition: display 500ms;
+}
+.submenu__btn {
+  display: flex;
+}
+.submenu__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--primary);
+}
+.submenu__item:hover {
+  background-color: var(--button-light);
+}
+.menu__btn:hover ~ .submenu {
+  display: inline-block;
+}
+.submenu:hover {
+  display: inline-block;
+}
+.start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav__icons[bdg-size='medium']:after {
+  right: -11px;
+  top: -11px;
+  min-width: 4px;
+  min-height: 4px;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.3rem;
+  line-height: 4px;
+  border: 2px solid var(--white);
+}
+
+@media screen and (min-width: 1024px) {
+  .title {
+    font-size: 1.25rem;
+  }
+  .drawer__content {
+    width: 25%;
+  }
+  .menu__btn__name {
+    display: inline;
+  }
+  .submenu {
+    top: 2.5rem;
+    right: 0.5rem;
+  }
+  .start {
+    justify-content: flex-start;
+  }
+}

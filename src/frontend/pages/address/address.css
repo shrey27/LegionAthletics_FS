@@ -1,0 +1,106 @@
+@import '../../utility/styles.css';
+
+.address {
+  width: 80%;
+  max-width: 35rem;
+  border: none;
+}
+.address.addressform {
+  max-width: 55rem;
+}
+.address__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.address_input_one,
+.address_input_three,
+.address_input_five,
+.address_input_seven,
+.address_input_two,
+.address_input_four,
+.address_input_six,
+.address_input_eight {
+  grid-column: 1/2;
+}
+
+/* Address Form */
+.addressformCtr {
+  border: 2px solid var(--tertiary);
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  overflow: hidden;
+  height: 2.75rem;
+  color: var(--tertiary);
+}
+.addressformCtr.slide {
+  transition: height 500ms;
+  height: max-content;
+  border: none;
+}
+/* Address card */
+.addressbar {
+  margin: 1rem 0;
+  height: max-content;
+  padding: 0 0 0.5rem;
+}
+.addressbar__border {
+  height: 3rem;
+  width: 100%;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+.addressbar__btn {
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--white);
+  color: var(--tag);
+  cursor: pointer;
+}
+.addressbar__btn__primary {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--rating);
+  color: var(--primary);
+  cursor: pointer;
+  margin: 0 0.5rem;
+}
+.addressbar__name,
+.addressbar__address,
+.addressbar__email {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin: 0.75rem 0.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .address__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .address_input_one,
+  .address_input_three,
+  .address_input_five,
+  .address_input_seven {
+    grid-column: 1/2;
+  }
+  .address_input_two,
+  .address_input_four,
+  .address_input_six,
+  .address_input_eight {
+    grid-column: 2/3;
+  }
+}
