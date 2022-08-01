@@ -1,0 +1,356 @@
+Webpack + Performace Exercises
+introduction#
+Going to learn about webpack and Web tooling
+
+Packaging: putting all your code together
+
+Module system
+
+import something from 'that-package'
+
+something.usefulFunction()
+
+function somethingSomethingMore() {}
+
+export default somethingSomethingMore
+Minification: remove spaces and shortening name
+
+Adding assets
+
+Adding CSS and CSS-in-JS
+
+Code Quality: Prettier and Linter
+
+Transpilation:
+
+TypeScript → JavaScript ES5
+Babel ES6+ code —> JavaScript that the browser supports mostly ES5.
+JavaScript Ecosystem
+
+ECMA body —> Hey! Here’s this new shiny thing in JavaScript
+Browsers: Oh! This sounds good. But it will take our devs a year to implement this. Even the browsers have their own consortium. Why? Browsers don’t only run JavaScript. They have HTML5 and CSS3 as well. - Safari: - Too slow. - The new Internet explorer ←- They want to control the app ecosystem. - PWA is bad on iOS. 30% of every app transaction is a lot of money. - Chrome: - Business depends on browser. They don’t control any operating system. - They go ahead and introduce APIs that are not part of the consortium. - Firefox, Edge - Inconsequential
+Lots of stories and understanding will cover in parts
+
+What makes CRA?
+
+NOTE: You don't need to remember any commands from today's class
+
+Remember the concepts
+ex01: setup#
+git clone https://github.com/tanaypratap/webpack-5
+go to branch 001-setup
+and do npm install
+ex02: webpack config#
+challenge#
+Add two files index.js and App.js with imports
+
+Add webpack.config.js file to do src to dist conversion
+
+Add index.html in dist with main.js to include the distribution bundle
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vanillaJS starter</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="./main.js" ></script>
+</body>
+</html>
+Add build script in package.json: "build": "webpack",
+
+documentation#
+https://webpack.js.org/guides/getting-started/#using-a-configuration
+
+solution#
+https://github.com/tanaypratap/webpack-5/tree/002-webpack-config
+
+ex03: loaders and babel#
+understanding#
+webpack only knows import/export
+it doesn't know JSX
+it doesn't know ES6+ code
+Babel does transpiling
+challenge#
+install babel
+
+"@babel/core": "^7.14.2",
+"@babel/preset-env": "^7.14.2",
+"babel-loader": "^8.2.2",
+configure preset-env and browserlist in package.json
+
+"babel": {
+		"presets": [
+			"@babel/preset-env"
+		]
+	},
+	"browserslist": "> 0.25%, not dead",
+add rules in webpack.config.js
+
+module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /(node_modules)/,
+				use: {
+					loader: "babel-loader",
+					options: {
+						presets: ["@babel/preset-env"]
+					}
+				}
+			}
+		]
+	},
+To check see that the () => {} fat arrow functions are getting converted in main.js file
+
+solution#
+https://github.com/tanaypratap/webpack-5/tree/003-babel
+
+storytime#
+why do we need it?
+
+let me tell you the story of a web dev
+script tag
+grunt
+gulp
+webpack
+parcel
+why do we need so much JS?
+ex04: homework add CSS as an asset#
+understanding#
+dependency graphs can have CSS as well
+this makes sure that we don't ship unused CSS to users as before when everything in public folders was shipped
+challenge#
+package.json
+
+"css-loader": "^5.2.4",
+"style-loader": "^2.0.0",
+webpack.config.js
+
+{
+				test: /\.css$/i,
+				use: ["style-loader", "css-loader"]
+
+}
+create an App.css file
+
+h1 {
+  color: royalblue;
+}
+
+h2 {
+  color: orangered;
+}
+import in App.js file
+
+import "./App.css";
+Run the build and check that CSS is working.
+
+You can see the CSS injected in <head>
+
+solution#
+https://github.com/tanaypratap/webpack-5/tree/004-css
+
+ex05: IMG asset#
+webpack.config.js
+
+{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: "asset/resource"
+}
+index.js
+
+// import Logo
+import Logo from './logo.svg'
+
+// inside innerHTML
+;<img src='${Logo}' alt='build icon' />
+run npm run build and confirm that you're seeing a new asset file generated.
+
+solution#
+https://github.com/tanaypratap/webpack-5/tree/005-img
+
+ex06: inline asset#
+understanding#
+tell about spriting
+challenge#
+webpack.config.js
+
+type: 'asset'
+delete the img file generated before. Check this still works
+solution#
+https://github.com/tanaypratap/webpack-5/tree/006-inline-asset
+
+ex07: setting up output and understanding plugins#
+Get ready for more optimizations!
+
+What are plugins?
+
+Automating the index.html file changes
+
+challenge#
+install html-webpack-plugin to the repo.
+webpack.config.js
+// 1. import
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+// 2. add the plugin in config
+{
+//....
+
+plugins: [
+		new HtmlWebpackPlugin({
+			title: "vanillaJS app",
+			template: path.resolve(__dirname, "src", "index.html")
+		})
+	],
+
+// 3.  add clean:true to output to keep the dist folder clean
+output: {
+		filename: "main.js",
+		path: path.resolve(__dirname, "dist"),
+		clean: true // <---- one more addition
+	},
+
+}
+create an index.html template for HTMLPlugin:
+// index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+      <div id="root"></div>
+  </body>
+</html>
+solution#
+https://github.com/tanaypratap/webpack-5/tree/007-output-setup
+
+ex08: code splitting#
+understanding#
+Why?
+
+Downloading one big file takes time
+Can load at a separate time (lazy loading, will see)
+Can cache the unchanged files. (will see)
+HOW?
+
+One way: By separating program code and vendor bundle
+Second way: By importing modules on user action. (will see)
+challenge#
+Add a heavy package like lodash to your app
+
+import _ from 'lodash'
+import './App.css'
+
+const App = ({ name }) => {
+  return `
+    <h2> ${_.join(['Welcome,', name], ' ')} </h2>
+    <p> Build apps with plain JS but with modern tooling  </p>
+    `
+}
+
+export default App
+now, add code splitting to your webpack.config.js
+
+// 1. change output
+
+output: {
+		filename: "[name].bundle.js",
+		path: path.resolve(__dirname, "dist"),
+		clean: true
+	},
+
+// 2. add optimisation options
+
+optimization: {
+		splitChunks: {
+			cacheGroups: {
+				node_vendors: {
+					name: "vendor",
+					test: /[\\/]node_modules[\\/]/,
+					chunks: "all",
+					priority: 1
+				}
+			}
+		}
+	},
+Run npm run build to see two bundles being generated.
+solution#
+https://github.com/tanaypratap/webpack-5/tree/008-code-splitting
+
+ex09: caching#
+understanding#
+http caching is inbuilt efficient way of making apps performant
+less download means faster boot time
+Theory: don't ship what's not changed
+vendor bundle is not changed often, and that is the bigger bundle
+**Cache-Control:**public, max-age=0 is important to set from the server
+challenge#
+in webpack.config.js
+
+output: {
+		filename: "[name].[contenthash].bundle.js", // <--- small change
+		path: path.resolve(__dirname, "dist"),
+		clean: true
+	},
+Now, run the build. You'll see file hash in the filename.
+Change something in the App.js file and run the build again.
+solution#
+https://github.com/tanaypratap/webpack-5/tree/009-caching
+
+ex10: dev setup#
+understanding#
+Now, that our build is setup we would work on our code.
+
+Doing npm run build every time you make a code change is not efficient.
+
+We will setup a devServer.
+
+challenge#
+Install "webpack-dev-server" for this.
+
+in webpack.config.js file
+
+devtool: "inline-source-map",
+devServer: {
+	contentBase: "./dist"
+},
+in package.json
+"scripts": {
+		"start": "webpack serve --open",
+Now, npm start will start the devServer for you.
+
+Note: devtool will make your life easier by mapping the source-map and thus help in debugging in dev mode.
+
+solution#
+https://github.com/tanaypratap/webpack-5/tree/010-dev-server
+
+ex11: lazy loading: homework#
+https://webpack.js.org/guides/code-splitting/#prefetchingpreloading-modules
+
+ex12: next steps#
+Use Degit
+
+https://github.com/Rich-Harris/degit
+
+More on webpack
+
+Explore other plugins and loaders
+https://webpack.js.org/guides/production/
+Adding TS, maybe create a different project for that
+https://webpack.js.org/plugins/eslint-webpack-plugin/
+Check your code with ESLint
+setup your app on netlify#
+https://docs.netlify.com/configure-builds/manage-dependencies/#node-js-and-javascript
+
+

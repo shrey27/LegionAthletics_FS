@@ -1,0 +1,45 @@
+.flag {
+  width: 60px;
+  height: 100px;
+  background-color: white;
+  position: relative;
+  margin: auto;
+}
+.flag::before {
+  content: "";
+  width: 60px;
+  height: 100px;
+  background-color: blue;
+  position: absolute;
+  left: -60px;
+}
+.flag::after {
+  content: "";
+  width: 60px;
+  height: 100px;
+  background-color: red;
+  position: absolute;
+  left: 60px;
+}
+.grid {
+  border: 2px solid black;
+  background-color: green;
+  height: 100px;
+}
+
+.cells {
+  width: 100px;
+  height: 100px;
+  float: left;
+  border: 2px solid rgb(13, 0, 128);
+}
+
+.parent {
+  border: 2px solid black;
+  padding: 1rem;
+  margin: 2rem auto;
+}
+button{
+  display: block;
+  margin: auto;
+}
