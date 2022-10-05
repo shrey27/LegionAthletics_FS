@@ -1,6 +1,6 @@
 <img src='public/lalogo.jpg' alt='logo' width=100px/>
 
-## Legion Athletics
+## Legion Athletics (Mern Stack)
 
 ## About
 
@@ -44,9 +44,6 @@ products. From protein supplements and consumables to wearables, it caters all y
 
 [Legion Athletics](https://legionathletics.netlify.app/)
 
-## Express JS code
-- [Backend](https://github.com/shrey27/Legion_Athletics_FS_Backend)
-
 ## Tech stack used
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -60,6 +57,9 @@ products. From protein supplements and consumables to wearables, it caters all y
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
+
+## Express JS code
+- [Backend](https://github.com/shrey27/Legion_Athletics_FS_Backend)
 
 ## Demo Video
 
